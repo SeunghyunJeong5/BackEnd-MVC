@@ -1,0 +1,30 @@
+package chapter14.ex02;
+
+class A{
+	
+}
+class B extends A{
+	
+}
+class C extends A{
+	
+}
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		//예외처리
+		
+		
+		int [] arr = new int [] {1,2,3,4,5};
+		System.out.println(arr[5]);
+		
+		A a1 = new B();
+		C c1 = (C)a1; 		//a1은 C타입이 없음.
+		
+		
+		System.out.println("프로그램 마지막 라인");
+	}
+
+}

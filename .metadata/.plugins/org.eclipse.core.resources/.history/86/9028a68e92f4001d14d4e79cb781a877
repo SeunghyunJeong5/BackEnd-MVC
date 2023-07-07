@@ -1,0 +1,35 @@
+package chapter07.ex04;
+
+class Car{
+	
+	
+	Car (){
+		company = "회사명 없음";
+		carName = "차명 없음"	;
+		carColor = "차색 등록안됨";
+		carDoor = 0;
+		carWeight = 0.0;
+	}
+	
+	
+	String company;
+	String carName;
+	String carColor;
+	int carDoor;
+	int carWeight;
+}
+
+
+
+public class Ex02 {
+	
+	public static void main(String[] args) {
+		
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,11 @@
+package chapter17.ex04;
+
+public class Set_Mechanism {
+	
+	public static void main(String[] args) {
+		
+		// Set<E> : 1. 방번호[index]가 존재하지 않는다. 
+		//			2. 중복된 값을 넣을 수 없다.
+	}
+
+}

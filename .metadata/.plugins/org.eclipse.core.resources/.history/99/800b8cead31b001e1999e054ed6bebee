@@ -1,0 +1,4 @@
+create table testboard(
+	tname varchar2(100),
+
+)

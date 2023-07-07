@@ -1,0 +1,19 @@
+package chapter17.ex04;
+
+class Member{
+	
+	String memberID;		//식별자로 사용... 오버라이딩2개..
+	String membername;
+	
+}
+
+public class Ex03 {
+	
+	public static void main(String[] args) {
+		
+		
+		
+		
+	}
+
+}

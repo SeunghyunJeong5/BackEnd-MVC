@@ -1,0 +1,15 @@
+package chapter17.ex05;
+
+class Student{ 		//Map에서 Key로 사용됨. 중복되면 안되니까 equals랑 hashcode를 오버라이딩해줘야됨.
+	
+}
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		
+		Map <Student, String>
+	}
+
+}

@@ -1,0 +1,31 @@
+package chapter07.ex04;
+
+class Book{
+	
+	String bookName;
+	String bookAuthor;
+	int bookPrice;
+	int bookCount;
+	
+	
+	//필드의 모든값을 출력
+	@Override
+	public String toString() {
+		return "Book [bookName=" + bookName + ", bookAuthor=" + bookAuthor + ", bookPrice=" + bookPrice + ", bookCount="
+				+ bookCount + "]";
+	}
+	
+}
+
+
+public class This_Method02 {
+
+	
+	public static void main(String[] args) {
+		
+		
+		
+		
+		
+	}
+}

@@ -1,0 +1,55 @@
+package chapter16.ex04;
+
+class KeyValue <K, V>{
+	
+	//A~Z 중 임의의 타입을 지정
+	
+	// T : Type
+	// K : Key
+	// V : Value
+	// N : Number
+	
+	private K key;
+	private V value;
+	
+	
+	public K getKey() {
+		return key;
+	}
+	public void setKey(K key) {
+		this.key = key;
+	}
+	public V getValue() {
+		return value;
+	}
+	public void setValue(V value) {
+		this.value = value;
+	}
+	
+}
+public class TwoGenericAguments {
+
+	public static void main(String[] args) {
+		//1. String, Integer 를 아규먼트로 하는 객체 생성
+		KeyValue <String, Integer> kv1 = new KeyValue <String, Integer>();
+		
+		
+		//setter 주입
+		kv1.setKey("사과");
+		kv1.setValue(1000);
+		
+		//getter를 사용해서 필드의 값을 출력
+		System.out.println(kv1.getKey());
+		System.out.println(kv1.getValue());
+		
+		
+		KeyValue <String, Integer> kv2 = new KeyValue <String, Integer>();
+
+		kv2.setKey("오렌지");
+		kv2.setValue(2000);
+		
+		System.out.println(kv2.getKey());		//이런걸보면 그냥 객체를 소환하는게 아니고 그냥 필드도 소환가능한거같음.
+		System.out.println(kv2.getValue());
+		
+	}
+}

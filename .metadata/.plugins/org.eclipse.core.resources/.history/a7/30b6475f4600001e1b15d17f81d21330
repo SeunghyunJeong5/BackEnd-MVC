@@ -1,0 +1,71 @@
+package chapter17.ex04;
+
+import java.util.HashSet;
+import java.util.Set;
+
+//hashCode(), equals()를 재정의 하지 않은 상태.
+class A{			//data 필드에 들어오는 값으로 각 객체를 식별하기 위해서는 : hashCode(), equals()가 재정의 되어있어야 set에 넣을때 동일한 값은 동일한 값으로 식별
+	
+	int data;
+	
+	
+	A(int data){
+		this.data = data;
+	}
+
+
+	@Override
+	public String toString() {
+		return " "+data+ " ";
+	}
+	
+	
+}
+
+public class Set_Mechanism {
+	
+	public static void main(String[] args) {
+		
+		// Set<E> : 1. 방번호[index]가 존재하지 않는다. 
+		//			2. 중복된 값을 넣을 수 없다.
+		//				- Set에 중복된 값을 넣지 못하도록 하기 위해서는 Object의 2개의 메소드가 재정의 되어있어야한다.
+		//				- 객체의 특정 필드의 hashCode(), equals() 가 재정의 되어있어야함.
+		//				- <E>에 들어갈 수 있는것 : (Wrapper Class : Boolean, Byte, Short, Integer, Long, Float, Double, Character), String
+		//										이것들은 이미 재정의 해놓음.
+		//										자신이 생성한 특정한 클래스(Type)를 set에 넣을 경우 : Object의 hashCode(), equals()메소드를 재정의 해야함.
+	
+	
+		//1. Set에 Wrapper class : Integer 를 사용한 경우. 중복된 값이 저장되지 않는다.
+		Set<Integer> hSet1 = new HashSet();
+		hSet1.add(22);
+		hSet1.add(33);
+		hSet1.add(22);
+		hSet1.add(33);
+		hSet1.add(33);
+	
+		System.out.println(hSet1);
+		System.out.println(hSet1.size());
+	
+		
+		
+		
+		//2. Set에 Wrapper class가 아닌 일반 클래스를 사용한 경우:
+		Set<A> hset2 = new HashSet();
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+		hset2.add(new A(22));
+	
+		System.out.println(hset2);
+		System.out.println(hset2.size());		//7개가 들어가있음.
+	
+	
+	
+	
+	
+	}
+
+}

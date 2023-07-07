@@ -1,0 +1,24 @@
+package chapter07.ex04;
+
+class Book{
+	
+	String bookName;
+	String bookAuthor;
+	int bookPrice;
+	int bookCount;
+	
+	
+}
+
+
+public class This_Method02 {
+
+	
+	public static void main(String[] args) {
+		
+		
+		
+		
+		
+	}
+}

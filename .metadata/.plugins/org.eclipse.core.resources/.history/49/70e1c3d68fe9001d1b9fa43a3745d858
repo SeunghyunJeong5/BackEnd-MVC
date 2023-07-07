@@ -1,0 +1,56 @@
+package chapter02.scanner;
+
+import java.util.Scanner;
+
+public class Ex02 {
+	
+	
+	public static void main(String[] args) {
+		//1. 스캐너 등록
+		//2. 우리 가족의 이름(String) 및 몸무게 (double) 를 인풋 받고, 몸무게의 합과, 평균을 구해서 출력하는 프로그램을 작성
+			// sc.nextDouble(); --- 실수값을 입력 받을때 써먹는것 
+		
+		Scanner sc = new Scanner(System.in);
+		
+		
+		String grandMatherName ;
+		String fatherName ;
+		String matherName ;
+		String sisterName ;
+		String myName ;
+		double grandMatherWeigth ;
+		double fatherWeigth ;
+		double matherWeigth ;
+		double sisterWeigth ;
+		double myWeigth ;
+		
+		
+		System.out.println("할머니 성함을 입력하세요 >>>");
+		grandMatherName = sc.next();
+		System.out.println("아버지 성함을 입력하세요 >>>");
+		fatherName = sc.next();
+		System.out.println("어머니 성함을 입력하세요 >>>");
+		matherName = sc.next();
+		System.out.println("누나의 성함을 입력하세요 >>>");
+		sisterName = sc.next();
+		System.out.println("나의 이름을 입력하세요 >>>");
+		myName = sc.next();
+		System.out.println("할머니 몸무게를 입력하세요 >>>");
+		grandMatherWeigth = sc.nextDouble();
+		System.out.println("아버지 몸무게를 입력하세요 >>>");
+		fatherWeigth = sc.nextDouble();
+		System.out.println("어머니 몸무게를 입력하세요 >>>");
+		matherWeigth = sc.nextDouble();
+		System.out.println("누나의 몸무게를 입력하세요 >>>");
+		sisterWeigth = sc.nextDouble();
+		System.out.println("나의 몸무게를 입력하세요 >>>");
+		myWeigth = sc.nextDouble();
+		
+		
+		double sum = grandMatherWeight + fatherWeight + matherWeight + sisterWeight + myWeight ;
+		double avg = sum/5.0 ;
+		
+		
+	}
+
+}

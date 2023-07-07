@@ -1,0 +1,23 @@
+package chapter14.ex02;
+
+public class TryCatch {
+	
+	public static void main(String[] args) {
+		
+		// 예외 처리 : 예외가 발생되더라도 프로그램이 멈추지 않도록 하기 위함.
+		// 예외를 처리하는 방법
+		//		1. throws 로 미루는 방법: 마지막에 호출하는 곳에서 예외를 처리
+		//				throw: 예외를 강제로 발생시킬때 사용
+		//		2. try catch 문을 사용해서 내가 직접 예외를 처리
+		
+		try {
+		
+		System.out.println(3/0);
+		} catch(ArithmeticException e) {
+			System.out.println("예외가 발생되었습니다.");
+		}
+		System.out.println("=========프로그램 마지막라인임===============");
+		
+	}
+
+}

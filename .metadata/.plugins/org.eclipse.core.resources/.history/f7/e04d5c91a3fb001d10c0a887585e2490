@@ -1,0 +1,20 @@
+package chapter16.ex04;
+
+class KeyValue <K, V>{
+	
+	//A~Z 중 임의의 타입을 지정
+	
+	// T : Type
+	// K : Key
+	// V : Value
+	// N : Number
+	
+	private K key;
+	private V value;
+}
+public class TwoGenericAguments {
+
+	public static void main(String[] args) {
+		
+	}
+}

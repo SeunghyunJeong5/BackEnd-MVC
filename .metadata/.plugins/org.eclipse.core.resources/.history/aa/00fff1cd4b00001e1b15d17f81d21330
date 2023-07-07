@@ -1,0 +1,26 @@
+package chapter17.ex04;
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Student {
+	int stuID;
+	String stuName;
+	String stuPhone;
+	
+	public Student(int stuID, String stuName, String stuPhone) {
+		super();
+		this.stuID = stuID;
+		this.stuName = stuName;
+		this.stuPhone = stuPhone;
+	}
+	
+	
+}
+public class Ex02 {
+public static void main(String[] args) {
+	
+	Set<Student> hset = new HashSet();
+}
+	
+}

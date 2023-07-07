@@ -1,0 +1,57 @@
+package chapter17.ex05;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+
+class Student{ 		//Map에서 Key로 사용됨. 중복되면 안되니까 equals랑 hashcode를 오버라이딩해줘야됨.
+	
+	int stuID;		//이게 중복되면안됨.
+	
+	String stuName;
+
+	public Student(int stuID, String stuName) {
+		super();
+		this.stuID = stuID;
+		this.stuName = stuName;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(stuID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return stuID == other.stuID;
+	}
+	
+	
+	@Override
+		public String toString() {
+			
+			return "학생 ID : "+ stuID +"학생 이름 : "+stuName;
+		}
+	
+}
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		
+		Map <Student, String> linkMap = new LinkedHashMap();
+		linkMap.put(new Student(11111, "홍길동");
+		
+		
+		System.out.println(linkMap);
+	}
+
+}

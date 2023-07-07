@@ -1,0 +1,46 @@
+package chapter17.ex04;
+
+import java.util.Set;
+
+class Member{
+	
+	String memberID;		//식별자로 사용... 오버라이딩2개..
+	String membername;
+	
+	
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
+	
+	
+	
+}
+
+class MemberMethod{
+	//Set을 정의
+	Set<Member> memSet;
+	//MemberMethod 객체를 생성시 Set을 활성화 시킴.
+
+}
+
+public class Ex03 {
+	
+	public static void main(String[] args) {
+		
+		
+		
+		
+	}
+
+}

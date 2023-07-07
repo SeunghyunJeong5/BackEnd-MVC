@@ -1,0 +1,59 @@
+package chapter17.ex04;
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Student {
+	int stuID;		//식별자 : 오버라이딩 2개 해야됨.
+	String stuName;
+	String stuPhone;
+	
+	public Student(int stuID, String stuName, String stuPhone) {
+		super();
+		this.stuID = stuID;
+		this.stuName = stuName;
+		this.stuPhone = stuPhone;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		return false;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		
+		return super.hashCode();
+	}
+	
+	
+	
+	
+	
+}
+public class Ex02 {
+public static void main(String[] args) {
+	
+	Set<Student> hset = new HashSet();
+	
+	//학생 객체를 5개 생성해서 set에 넣을 경우 stuID필드에 중복된 값을 넣지 못하도록 설정
+	//stuID 필드의 equals() 재정의, hashCode() 재정의
+	
+	Student s1 = new Student();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+	
+}

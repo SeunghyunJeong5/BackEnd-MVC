@@ -1,0 +1,9 @@
+create table testboard(
+	tname varchar2(100),
+	tpass varchar2(100),
+	temail varchar2(100),	
+	taddr varchar2(100),	--주소
+	today varchar2(100),	-- 오늘날짜
+	sub varchar2(100),		-- 글제목
+	content varchar2(100)	-- 글내용
+)

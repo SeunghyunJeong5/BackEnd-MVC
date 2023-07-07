@@ -1,0 +1,49 @@
+package chapter17.ex05;
+
+public class Map_Summary {
+
+	public static void main(String[] args) {
+		
+		//map <K,V>> : K : Key		: 중복되면 안됨, Set관리됨===> List의 방번호 같은거
+				//			   V : Value	: 중복된 값을 넣을 수 있음.
+			
+
+				
+				//		- HashMap <K,V>		: Key(HashSet) 임의로 출력됨, 싱글 쓰레드(ArrayList와 비슷)
+				//		- Hashtable <K,V>	: Key(HashSet) 임의로 출력됨, 멀티 쓰레드(Vector와 비슷), 모든 메소드가 동기화 처리됨.
+				//		- LinkedHashMap <K,V> : Key(LinkedHashSet) : 넣은 순서대로 출력됨.
+				//		- TreeMap <K,V>		  : Key(TreeSet) : Key가 정렬되어서 들어감. <기본적으로 오름차순 정렬>
+			
+		//1. HashMap : 입력순서와 출력순서가 다르다.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}

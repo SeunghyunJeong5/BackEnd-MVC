@@ -1,0 +1,13 @@
+package chapter14.ex02;
+
+public class Ex01 {
+	
+	public static void main(String[] args) {
+		
+		
+		
+		int [] arr = new int [] {1,2,3,4,5};
+		
+	}
+
+}

@@ -1,0 +1,129 @@
+package chapter17.ex04;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
+
+class Member{
+	
+	int memberID;		//식별자로 사용... 오버라이딩2개..
+	String membername;
+	
+	
+	
+	
+	public Member(int memberID, String membername) {
+		
+		this.memberID = memberID;
+		this.membername = membername;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Member) {
+			if (this.memberID== ((Member)obj).memberID) {
+				return true;
+			
+			}else {
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		
+		return Objects.hash(memberID);
+	}
+	
+	
+	
+	
+}
+
+class MemberMethod{
+	//Set을 정의
+	Set<Member> memSet;
+	//MemberMethod 객체를 생성시 Set을 활성화 시킴.
+	MemberMethod(){
+		this.memSet = new HashSet();
+	}
+
+	//메소드를 정의
+	public void addMember(Member member) {	//Member객체를 인풋으로 던지면 memSet에 저장
+		
+		//코드 뭐뭐.add뭐 하면되지 않을까..
+		
+		memSet.add(member);
+		
+	
+			
+	}
+	
+	//정수를 인풋받아서 : memberID ===> set에 저장되어있는 Member 에서 iterator를 통해서 끄집어내서 memberID와 같을경우 인풋받은 맴버아이디를 set에서 삭제.
+	//잘 삭제가 완료된 경우, 해당아이디를 찾을수 없는경우 return false	
+	public boolean removeMember(int memberID) {
+		
+		//코딩
+		Iterator<Member> iterator = memSet.iterator();
+        while (iterator.hasNext()) {
+            Member member = iterator.next();
+            if (member.memberID == memberID) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+		
+		
+		
+	
+		
+	
+	
+	
+	public void showMember() {		//메소드 호출시 Set에 저장된 Member객체의 필드의 값을 출력
+	
+		//코딩
+		for (Member member : memSet) {
+            System.out.println("Member ID: " + member.memberID + ", Member Name: " + member.memberName);
+        }
+		
+	}
+	
+	public void showSize() {		//Set에 저장된 총 개수를 출력
+		//코딩
+		System.out.println("Total members: " + memSet.size());
+	}
+	
+	
+	
+	
+}
+
+public class Ex03 {
+	
+	public static void main(String[] args) {
+		
+		
+		//member 객체를 5개 만들고 메소드를 통해서 set에 넣기 ...
+	
+		
+		memberMethod.addMember(new Member(11111, "이순신"));
+		
+		memSet.add(new Member(11111, "이순신"));
+		memSet.add(new Member(22222, "세종대왕"));
+		memSet.add(new Member(33333, "홍길동"));
+		memSet.add(new Member(44444, "신사임당"));
+		memSet.add(new Member(55555, "안중근"));
+		
+		
+		
+		
+		
+	}
+
+}
