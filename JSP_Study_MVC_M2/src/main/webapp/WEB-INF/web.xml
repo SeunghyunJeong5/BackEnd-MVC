@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>JSP_Study_MVC_M2</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- 
+  
+  		Controller Mapping : *.do (Client 요청) ===> com.mysite.controller.MyController.java
+  					<a href = *.do > 이런 방식 
+  					<form m=get action... 이런 방식으로 사용....
+  
+  -->
+  
+  <servlet>
+  		<servlet-name>action</servlet-name>		<!--서버 매핑 -->
+  		<servlet-class>com.mysite.controller.MyController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>action</servlet-name> 		<!--클라이언트 매핑 -->
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+    <!-- 
+  
+  		Controller Mapping : *.action (Client 요청) ===> com.mysite.controller.MyController2.java
+  					<a href = *.do > 이런 방식 
+  					<form m=get action... 이런 방식으로 사용....
+  
+  
+  web.xml을 수정하면 서버부터 시작해봐야한다.
+  -->
+  
+  <servlet>
+  		<servlet-name>action2</servlet-name>		<!--서버 매핑 -->
+  		<servlet-class>com.mysite.controller.MyController2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>action2</servlet-name> 		<!--클라이언트 매핑 -->
+  	<url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</web-app>

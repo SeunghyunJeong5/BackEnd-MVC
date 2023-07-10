@@ -6,6 +6,7 @@
 
 <%
 Connection conn = null;		//Connection 객체 변수 초기화
+
 String driver = "oracle.jdbc.driver.OracleDriver";		//driver에 ("안의 내용 할당)
 String url = "jdbc:oracle:thin:@localhost:1521:XE";
 
