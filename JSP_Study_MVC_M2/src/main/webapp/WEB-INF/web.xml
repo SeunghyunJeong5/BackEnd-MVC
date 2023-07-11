@@ -55,7 +55,15 @@
   
   
   
+  <servlet>
+  		<servlet-name>action3</servlet-name>		<!--서버 매핑 -->
+  		<servlet-class>com.mysite.controller.MyController3</servlet-class>
+  </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>action3</servlet-name> 		<!--클라이언트 매핑 -->
+  	<url-pattern>*.can</url-pattern>
+  </servlet-mapping>
   
   
   

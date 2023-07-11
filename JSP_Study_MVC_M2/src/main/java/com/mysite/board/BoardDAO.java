@@ -1,6 +1,11 @@
 package com.mysite.board;
 
-import java.sql.*;		//싹다 import ==> *로 표기
+//싹다 import ==> *로 표기
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysite.common.JDBCUtil;
 
@@ -21,10 +26,11 @@ public class BoardDAO {
 	private final String BOARD_UPDATE = "";
 	private final String BOARD_DELETE = "";
 	private final String BOARD_GET = "";
-	private final String BOARD_LIST = "";
+	private final String BOARD_LIST = "select*from board order by seq desc";
 	
 	
 	//1. board 테이블에 값을 넣는 메소드 : insert
+	//BOARD_INSERT = "insert into board(seq,title,write,content)values((select nvl(max(seq),0) +1 from board) ,?,?,?)";
 	public void insertBoard (BoardDTO dto) {
 		System.out.println("======== insertBoard 기능 처리 ==========");
 		
@@ -53,6 +59,68 @@ public class BoardDAO {
 			JDBCUtil.close(pstmt, conn);
 		}
 	}
+	
+	
+	//2. UPDATE
+	
+	//3. DELETE
+	
+	//4. 상세페이지 (GET) : 레코드 1개
+	
+	//5. 리스트 페이지 (BOARD_LIST) : 레코드 여러개
+			//전체 레코드를 rs로 가져와서 한줄의 레코드를(한 column) setter로 DTO한개에 저장 ---> DTO여러개(board)를 arrayList에 add해서 저장...
+			
+			//BOARD_LIST = "select*from board order by seq desc";
+	public List<BoardDTO> getBoardList(BoardDTO dto){
+		System.out.println("getBoardList 메소드 호출 - 게시판 리스트 페이지");
+		
+		//주의 : while 블락밖에서 선언해야한다.
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();	// try 블락 밖에서 선언이 되어야함.
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_LIST);
+			rs = pstmt.executeQuery();		// rs에는 select한 결과 레코드셋을 담고있다.
+			
+			//rs의 값을 끄집어내서 DTO에 저장
+			while (rs.next()) {
+				
+				//주의 : while 블락내에서 DTO객체를 생성해야 board(DTO)의 힙주소가 새로 생성됨.(밖에서 생성하면 힙주소가 계속 동일하기 때문에 마지막 값만 적용됨.)
+				BoardDTO board = new BoardDTO();		// DTO객체를 while 루프 내에서 생성해야됨.
+				
+				board.setSeq(rs.getInt("SEQ"));
+				board.setTitle(rs.getNString("TITLE"));
+				board.setWrite(rs.getNString("WRITE"));
+				board.setContent(rs.getNString("CONTENT"));
+				board.setRegdate(rs.getDate("REGDATE"));
+				board.setCnt(rs.getInt("CNT"));
+				
+				//boardList에 DTO를 추가
+				boardList.add(board);
+			}
+			
+			System.out.println("boardList에 모든 레코드 추가 성공");
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println("boardList에 모든 레코드 추가 실패");
+		}finally {
+			//사용한 객체 모두 제거(close)
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		
+		return boardList;		//boardList : board 테이블의 각각의 레코드를 dto에 담아서 boardList에 저장됨.
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
