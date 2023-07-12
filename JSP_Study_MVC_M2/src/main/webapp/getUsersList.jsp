@@ -52,11 +52,21 @@
 		<tr> 
 			<td><%= k.getId() %></td>
 			<td><%= k.getPassword() %></td>
-			<td><%= k.getName() %></td>
+			
+			
+			<!-- 이름에 링크를 걸어서 글의 상세 페이지를 출력할 수 있도록 Get 방식으로 링크 설정 -->
+			<td>
+			<a href = "getUsers.do?id=<%= k.getId() %>" > <!-- 변수명(id)에 getId로 값을 넣어서... 공백도 주의 -->
+			<%= k.getName() %>
+			</td>
+			
+			
 			<td><%= k.getRole() %></td>
 			
 		
 		</tr>
+		
+	
 		
 		<%
 			}

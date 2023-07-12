@@ -25,7 +25,8 @@
     <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
     <fullyQualifiedTypeName name="lombok.ToString"/>
     <fullyQualifiedTypeName name="com.mysite.common.JDBCUtil"/>
-    <fullyQualifiedTypeName name="com.mysite.board.BoardDAO"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="com.mysite.board.BoardDTO"/>
+    <fullyQualifiedTypeName name="com.mysite.board.BoardDAO"/>
 </qualifiedTypeNameHistroy>

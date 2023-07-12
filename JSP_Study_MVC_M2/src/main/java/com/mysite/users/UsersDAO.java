@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.mysite.board.BoardDTO;
 import com.mysite.common.JDBCUtil;
 
 public class UsersDAO {
@@ -19,9 +19,9 @@ public class UsersDAO {
 		
 		//SQL 쿼리를 상수로 정의 후에 각각 필요한 메소드에서 사용
 		private final String USERS_INSERT = "insert into users( id, password, name, role ) values(?,?,?,?)"; 
-		private final String USERS_UPDATE = "";
+		private final String USERS_UPDATE = "update users set name = ?, role = ? where id = ?";
 		private final String USERS_DELETE = "";
-		private final String USERS_GET = "";
+		private final String USERS_GET = "select*from users where id = ?";
 		private final String USERS_LIST = "select*from users order by id desc";
 		
 	
@@ -55,17 +55,97 @@ public class UsersDAO {
 			//사용한 객체를 제거
 			JDBCUtil.close(pstmt, conn);
 		}
-	
-		
-		
-		
-		
-		
-		
 		
 	}
 	
-	//2. users 테이블의 모든 레코드를 출력하는 메소드
+	
+	
+	
+	
+	//2. UPDATE
+			//USERS_UPDATE  = "update users set name = ?, role = ? where id = ?";
+		public void updateUsers(UsersDTO dto) {
+			System.out.println("updateUsers 메소드 호출");
+			
+			try {
+				conn = JDBCUtil.getConnection();
+				pstmt = conn.prepareStatement(USERS_UPDATE);
+				pstmt.setString(1, dto.getName());
+				pstmt.setString(2, dto.getRole());
+				pstmt.setString(3, dto.getId());
+				
+				pstmt.executeUpdate();
+				
+				System.out.println("update 성공");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("update 실패");
+			} finally {
+				JDBCUtil.close(pstmt, conn);
+			}
+			
+			
+			
+		}
+		//test해보고 적용하기...
+	
+	
+	
+		//3. DELETE
+		
+		//4. 상세페이지 (GET) : 레코드 1개(글 내용만 따로 보기위함) : 리턴 타입 UsersDTO
+			//USERS_GET = "select*from users where id = ?";   
+		public UsersDTO getUsers(UsersDTO dto) {			// 클라에서 요청한 dto
+			UsersDTO users = new UsersDTO();				// rs에서 dto로 setter주입으로 레코드 값을 가져오는것(이것도 dto)
+			
+			
+			
+			try {
+				conn = JDBCUtil.getConnection();
+				pstmt = conn.prepareStatement(USERS_GET);
+				pstmt.setString(1, dto.getId());		// 클라가 id로 요청을 하는것이므로 DTO로 요청을 하는데 ?에 DTO의 id값을 get해서 넣는다는것.
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					users.setId(rs.getString("ID"));	//db의 컬럼명 ID. UsersDTO에 setter 주입한것.
+					users.setPassword(rs.getString("PASSWORD"));
+					users.setName(rs.getString("NAME"));
+					users.setRole(rs.getString("ROLE"));
+					
+					
+					
+				}
+				System.out.println("Users 테이블에서 상세 레코드가 잘 처리되었습니다.");
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Users 테이블에서 상세 레코드가 잘 처리되었습니다.");
+
+			}finally {
+				JDBCUtil.close(rs, pstmt, conn);
+			}
+			
+			return users;
+		}
+		//테스트를 한번 해보고 view페이지를 만들면되는데 그전에 controller한번 가서 설정해야함.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//5. users 테이블의 모든 레코드를 출력하는 메소드
 	public List<UsersDTO> getUsersList(UsersDTO dto){
 		System.out.println("getUsersList 메소드 호출 - Users 리스트 페이지");
 	

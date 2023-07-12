@@ -22,11 +22,12 @@ public class BoardDAO {
 	private ResultSet rs = null;
 	
 	//SQL 쿼리를 상수로 정의 후에 각각 필요한 메소드에서 사용
-	private final String BOARD_INSERT = "insert into board(seq,title,write,content)values((select nvl(max(seq),0) +1 from board) ,?,?,?)"; //안에 있으면 다음 라인에다가 값을 넣는다는것.
-	private final String BOARD_UPDATE = "";
-	private final String BOARD_DELETE = "";
-	private final String BOARD_GET = "";
-	private final String BOARD_LIST = "select*from board order by seq desc";
+	private final String BOARD_INSERT  = "insert into board(seq,title,write,content)values((select nvl(max(seq),0) +1 from board) ,?,?,?)"; //안에 있으면 다음 라인에다가 값을 넣는다는것.
+	private final String BOARD_UPDATE  = "update board set title = ?, content = ? where seq = ?";
+	private final String BOARD_DELETE  = "";
+	private final String BOARD_GET 	   = "select*from board where seq = ?";
+	private final String BOARD_ADD_CNT = "update board set cnt = (select cnt +1 from board where seq = ?) where seq = ?";
+	private final String BOARD_LIST    = "select*from board order by seq desc";
 	
 	
 	//1. board 테이블에 값을 넣는 메소드 : insert
@@ -62,10 +63,105 @@ public class BoardDAO {
 	
 	
 	//2. UPDATE
+		//BOARD_UPDATE  = "update board set title = ?, content = ? where seq = ?";
+	public void updateBoard(BoardDTO dto) {
+		System.out.println("updateBoard 메소드 호출");
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_UPDATE);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setInt(3, dto.getSeq());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("update 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("update 실패");
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+		
+		
+		
+	}
+	//test해보고 적용하기...
+	
+	
+	
+	
 	
 	//3. DELETE
 	
-	//4. 상세페이지 (GET) : 레코드 1개
+	//4. 상세페이지 (GET) : 레코드 1개(글 내용만 따로 보기위함) : 리턴 타입 BoardDTO
+		//BOARD_GET = "select*from board where seq = ?";   
+	public BoardDTO getBoard(BoardDTO dto) {			// 클라에서 요청한 dto
+		BoardDTO board = new BoardDTO();				// rs에서 dto로 setter주입으로 레코드 값을 가져오는것(이것도 dto)
+		
+		addCNT(dto); 	//조회수 증가 메소드를 넣음.
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_GET);
+			pstmt.setInt(1, dto.getSeq());		// 클라가 seq번호로 요청을 하는것이므로 DTO로 요청을 하는데 ?에 DTO의 seq값을 get해서 넣는다는것.
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				board.setSeq(rs.getInt("SEQ"));	//db의 컬럼명 SEQ. BoardDTO에 setter 주입한것.
+				board.setTitle(rs.getString("TITLE"));
+				board.setWrite(rs.getString("WRITE"));
+				board.setContent(rs.getString("CONTENT"));
+				board.setRegdate(rs.getDate("REGDATE"));
+				board.setCnt(rs.getInt("CNT"));
+				
+			}
+			System.out.println("Board 테이블에서 상세 레코드가 잘 처리되었습니다.");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Board 테이블에서 상세 레코드가 잘 처리되었습니다.");
+
+		}finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		
+		return board;
+	}
+	//테스트를 한번 해보고 view페이지를 만들면되는데 그전에 controller한번 가서 설정해야함.
+	
+	
+	
+	//조회수 증가 메소드 : BOARD_ADD_CNT = "update board set cnt = (select cnt +1 from board where seq = ?) where seq = ?";
+	public void addCNT(BoardDTO dto) {
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(BOARD_ADD_CNT);
+			pstmt.setInt(1, dto.getSeq());
+			pstmt.setInt(2, dto.getSeq());
+			
+			pstmt.executeUpdate(); //insert, update, delete 일때 사용하는 메소드
+			
+			System.out.println("조회수 증가 성공");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("조회수 증가 실패");
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//5. 리스트 페이지 (BOARD_LIST) : 레코드 여러개
 			//전체 레코드를 rs로 가져와서 한줄의 레코드를(한 column) setter로 DTO한개에 저장 ---> DTO여러개(board)를 arrayList에 add해서 저장...
@@ -89,9 +185,9 @@ public class BoardDAO {
 				BoardDTO board = new BoardDTO();		// DTO객체를 while 루프 내에서 생성해야됨.
 				
 				board.setSeq(rs.getInt("SEQ"));
-				board.setTitle(rs.getNString("TITLE"));
-				board.setWrite(rs.getNString("WRITE"));
-				board.setContent(rs.getNString("CONTENT"));
+				board.setTitle(rs.getString("TITLE"));
+				board.setWrite(rs.getString("WRITE"));
+				board.setContent(rs.getString("CONTENT"));
 				board.setRegdate(rs.getDate("REGDATE"));
 				board.setCnt(rs.getInt("CNT"));
 				

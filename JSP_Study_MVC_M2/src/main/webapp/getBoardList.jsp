@@ -54,7 +54,16 @@
 		<!-- k는 DTO임 -->
 		<tr> 
 			<td><%= k.getSeq() %></td>
-			<td><%= k.getTitle() %></td>
+			<!-- 제목에 링크를 걸어서 글의 상세 페이지를 출력할 수 있도록 Get 방식으로 링크 설정 -->
+			<td>
+			
+			
+			<a href = "getBoard.do?seq=<%= k.getSeq() %>" > <!-- 변수명(seq)에 getSeq로 값을 넣어서... 공백도 주의 -->
+			<%= k.getTitle() %>
+			</a>
+			
+			
+			</td>
 			<td><%= k.getWrite() %></td>
 			<td><%= k.getRegdate() %></td>
 			<td><%= k.getCnt() %></td>
