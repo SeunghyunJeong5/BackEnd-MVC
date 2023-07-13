@@ -40,3 +40,24 @@ values ('user', '1234', '일반사용자', 'Users');
 select*from users;
 
 commit;
+
+
+
+
+
+
+
+
+create table products(
+    p_code number(5) not null primary key,
+    p_name varchar2(100) null,
+    p_kind char(1) null,
+    p_price varchar2(10) null,
+    p_quantity varchar2(5) null,
+    p_content varchar2(1000) null,
+    indate date default sysdate null
+    );
+
+drop table products;
+
+commit;

@@ -23,6 +23,11 @@ public class UsersDAO {
 		private final String USERS_DELETE = "";
 		private final String USERS_GET = "select*from users where id = ?";
 		private final String USERS_LIST = "select*from users order by id desc";
+		private final String USERS_LOGIN = "select * from users where id =? and password =?";
+		
+		
+	
+		
 		
 	
 	//1. users 테이블에 값을 넣는 메소드
@@ -163,10 +168,10 @@ public class UsersDAO {
 				//주의 : while 블락내에서 DTO객체를 생성해야 users(DTO)의 힙주소가 새로 생성됨.(밖에서 생성하면 힙주소가 계속 동일하기 때문에 마지막 값만 적용됨.)
 				UsersDTO users = new UsersDTO();		// DTO객체를 while 루프 내에서 생성해야됨.
 				
-				users.setId(rs.getNString("ID"));
-				users.setPassword(rs.getNString("PASSWORD"));
-				users.setName(rs.getNString("NAME"));
-				users.setRole(rs.getNString("ROLE"));
+				users.setId(rs.getString("ID"));
+				users.setPassword(rs.getString("PASSWORD"));
+				users.setName(rs.getString("NAME"));
+				users.setRole(rs.getString("ROLE"));
 				
 				
 				//usersList에 DTO를 추가
@@ -187,6 +192,53 @@ public class UsersDAO {
 		
 	}
 	
+	
+	//6. 로그인 처리 메소드
+		// USERS_LOGIN = "select * from users where id =? and password =?";
+	public UsersDTO login(UsersDTO dto) {		// dto는 login메소드를 통해 들어오는 것인데, select한 결과를 담는 것임.
+		UsersDTO users = null;
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(USERS_LOGIN);
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getPassword());
+			
+			
+			rs = pstmt.executeQuery();		//rs에 select한 결과값이 있으면 인증성공
+			
+			//레코드가 존재할때 true
+			while(rs.next()) {
+				users = new UsersDTO();	//객체 선언
+				
+				users.setId(rs.getString("ID"));
+				users.setPassword(rs.getString("PASSWORD"));
+				users.setName(rs.getString("NAME"));
+				users.setRole(rs.getString("ROLE"));
+				
+				System.out.println("인증 성공 : DB에 해당 ID와 Password가 존재함.");
+			}
+			
+			
+			System.out.println("로그인 메소드 잘 작동");
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("로그인 처리시 오류 발생");
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		
+		
+		
+		
+		
+		return users;
+	}
+	
+	//테스트를 해보고 적용하자.
 	
 
 }

@@ -1,9 +1,0 @@
-/* Oracle - 쿼리 */
-
-create table guestboard(
-name varchar2(100),
-email varchar2(100),
-inputdate varchar2(100),
-subject varchar2(100),
-content varchar2(100)
-);

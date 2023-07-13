@@ -16,6 +16,9 @@ import com.mysite.board.BoardDTO;
 import com.mysite.users.UsersDAO;
 import com.mysite.users.UsersDTO;
 
+import com.mysite.products.ProductsDAO;
+import com.mysite.products.ProductsDTO;
+
 /**
  * Servlet implementation class MyController
  */
@@ -109,9 +112,81 @@ public class MyController extends HttpServlet {
 			 System.out.println("login.do 요청을 했습니다.");
 			 // 로그인을 처리하는 코드블락
 			 
+			 // 1. Client form에서 넘어온 변수 : id, password
+			 String id = request.getParameter("id");
+			 String password = request.getParameter("password");
+			 
+			 
+			 // 2. DTO에 저장
+			 UsersDTO dto = new UsersDTO();
+			 dto.setId(id);
+			 dto.setPassword(password);
+			 
+			 
+			 // 3. DAO에 메소드 호출
+			 UsersDAO dao = new UsersDAO();
+			 
+			 
+			 //users : null일 경우 ==> 해당 ID와 Password가 일치하지 않는 경우
+			 //users : null이 아닐 경우 ==> 해당 ID와 Password가 DB에 존재함. ==> session 변수에 정보값을 입력한다.
+			 UsersDTO users = dao.login(dto);		//users에는 유저의 정보가 담겨있음.
+			 
+			 if (users == null) { //인증 실패
+				 System.out.println("인증 실패 했습니다.");
+				 
+				 
+				 response.sendRedirect("LoginForm.jsp");
+				 
+			 } else {			  //인증 성공
+				 System.out.println("인증 성공 했습니다.");
+				 
+				 // Session 변수를 생성하고 변수에 ID값을 담아서 클라이언트 view페이지로 전송
+				 HttpSession session = request.getSession();
+				 System.out.println(session);
+				 
+				 //세션에 변수에 dto의 값을 할당.  
+				 session.setAttribute("id", users.getId());		//db에서 가져온 ID
+				 session.setAttribute("role", users.getRole());	//db에서 가져온 ROLE
+				 
+				 //잘 가져와지는지 확인
+				 System.out.println("=====세션 변수에 담기는 값=====");
+				 System.out.println(users.getId());
+				 System.out.println(users.getRole());
+				 
+				 response.sendRedirect("LoginForm.jsp");
+			 }
+			 
+			 
+			
+			 
+			 
+			 
 		 } else if (path.equals("/logout.do")) {
 			 System.out.println("logout.do 요청을 했습니다.");
 			 // 로그아웃 요청을 처리하는 코드블락
+			  
+			 // 1. 세션의 모든 변수와 값을 모두 삭제
+			 HttpSession session = request.getSession();
+			 
+			 //접속한 클라이언트의 session에 저장된 모든 변수의 값을 삭제
+			 session.invalidate();
+			 
+			 // 2. 세션 삭제 후 이동 페이지
+			 response.sendRedirect("/JSP_Study_MVC_M2");
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			 
 		 } else if (path.equals("/insertBoard.do")) {
 			 System.out.println("insertBoard.do 요청을 했습니다.");
@@ -209,8 +284,31 @@ public class MyController extends HttpServlet {
 			 
 			 //클라이언트 뷰페이지로 이동
 			 response.sendRedirect("getBoardList.jsp");
+			
 			 
 			 
+			 
+		 } else if (path.equals("/deleteBoard.do")) {
+			 System.out.println("/deleteBoard.do 요청 성공");
+			 
+			 String seq = request.getParameter("seq");
+			 String write = request.getParameter("write");
+			 
+			 //변수값 잘 넘어오는지 확인.
+			 //System.out.println("seq : "+ seq);
+			 //System.out.println("write : "+ write);
+			 
+			 // 1. 변수를 DTO에 저장
+			 BoardDTO dto = new BoardDTO();
+			 dto.setSeq(Integer.parseInt(seq));
+			 dto.setWrite(write);
+			 
+			 // 2. DAO의 메소드 호출
+			 BoardDAO dao = new BoardDAO();
+			 dao.deleteBoard(dto);			//주의!!! 잘못씀!!!
+			 
+			 // 3. view 페이지로 이동
+			 response.sendRedirect("getBoardList.do");
 			 
 			 
 			 
@@ -382,6 +480,68 @@ public class MyController extends HttpServlet {
 			 //4. view페이지로 이동
 			 response.sendRedirect("getUsersList.do");
 		 
+		 
+		 
+		 
+		 
+		 } else if (path.equals("/insertProducts.do")) {
+			 System.out.println("insertProducts.do 요청을 했습니다.");
+			 // 게시판에서 값을 DB에 저장함.
+			 
+			 // 1. client 폼에서 넘어오는 변수의 값을 받아서 새로운 변수에 제 할당.
+			 String p_code = request.getParameter("p_code");
+			 String p_name = request.getParameter("p_name");
+			 String p_kind = request.getParameter("p_kind");
+			 String p_price = request.getParameter("p_price");
+			 String p_quantity = request.getParameter("p_quantity");
+			 String p_content = request.getParameter("p_content");
+			 
+			 // 2. DTO 객체를 생성해서 Setter 주입
+			 ProductsDTO dto = new ProductsDTO();
+			 dto.setP_code(Integer.parseInt(p_code));
+			 dto.setP_name(p_name);
+			 dto.setP_kind(p_kind);
+			 dto.setP_price(p_price);
+			 dto.setP_quantity(p_quantity);
+			 dto.setP_content(p_content);
+			
+			 
+			 // 3. DAO 객체 생성 후 insertProducts(dto)
+			 ProductsDAO dao = new ProductsDAO();
+			 dao.insertProducts(dto);		//insert완료
+			 
+			 // 4. 비즈니스 로직을 처리 후 view 페이지로 이동
+			 response.sendRedirect("getProductsList.do");
+		 
+		 
+		 } else if (path.equals("/getProductsList.do")) {	//글목록
+			 System.out.println("getProductsList.do 요청을 했습니다.");
+			
+			 // 1. DTO 객체 생성
+			 ProductsDTO dto = new ProductsDTO();
+			 
+			 
+			 // 2. DAO의 getProductsList(dto)
+			 ProductsDAO dao = new ProductsDAO();
+			 
+			 List<ProductsDTO> productsList = new ArrayList<ProductsDTO>();
+			
+			 //productsList 에는 products 테이블의 각 레코드를 dto에 저장 후 productsList에 추가된 객체를 리턴
+			 productsList = dao.getProductsList(dto);
+			 
+			 //리턴받은 productsList를 Client의 View 페이지로 전송, (Session에 리스트를 저장 후 클라이언트로 전송)
+			 
+			 //Session : 접속한 모든 Client에 고유하게 부여된 식별자가 서버 메모리에 할당. 
+			 
+			 //세션 변수 선언
+			 HttpSession session = request.getSession();
+			 
+			 //세션에 productsList를 추가
+			 session.setAttribute("productsList", productsList); //session명 productsList으로 지정하고 productsList정보를 담아옴.
+			 
+			 //클라이언트 뷰페이지로 이동
+			 response.sendRedirect("getProductsList.jsp");
+			 
 		 }
 		
 			
