@@ -98,6 +98,23 @@
 	<a href = "insertProducts.jsp"> 제품등록 페이지 </a> <p/>
 	
 	
+	<% 
+	
+		if ( sessionRole != null && sessionRole.equals("Admin") ) {
+		
+		%>
+	<h3> 관리자만 볼수 있는 페이지 </h3>
+	<%
+		}else {
+	
+	%>
+	
+	<h3> 일반사용자 들이 볼수 있는 페이지 </h3>
+	
+	<%
+		}
+	%>
+	
 	
 </body>
 </html>

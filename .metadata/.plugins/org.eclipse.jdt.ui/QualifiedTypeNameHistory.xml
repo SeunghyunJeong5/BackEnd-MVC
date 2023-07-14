@@ -8,7 +8,6 @@
     <fullyQualifiedTypeName name="chapter08.ex02.A"/>
     <fullyQualifiedTypeName name="chapter08.ex03.Car1"/>
     <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="chapter10.ex04.Student"/>
     <fullyQualifiedTypeName name="lombok.EqualsAndHashCode"/>
@@ -29,4 +28,5 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
     <fullyQualifiedTypeName name="com.mysite.board.BoardDTO"/>
     <fullyQualifiedTypeName name="com.mysite.board.BoardDAO"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
 </qualifiedTypeNameHistroy>

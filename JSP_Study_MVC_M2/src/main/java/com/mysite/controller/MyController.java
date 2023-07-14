@@ -251,12 +251,73 @@ public class MyController extends HttpServlet {
 			 
 			 //이제 뷰페이지에서 원하는 값을 끄집어내서 보여주면 됨.
 			 
-			 
-			 
-			 
 			 response.sendRedirect("getBoard.jsp");
 			 
 			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 //검색기능을 추가한 getBoardList.do
+		 } else if (path.equals("/getBoardList.do")) {	//글목록
+			 System.out.println("getBoardList.do 요청을 했습니다.");
+			
+			 
+			 //클라이언트에서 받은 검색어를 DTO에 저장 후 메소드 호출
+			 String searchCondition = request.getParameter("searchCondition");
+			 String searchKeyword = request.getParameter("searchKeyword");
+			 
+			 
+			 //null 처리를 해야함 : 주의 : URL로 요청(getBoardList.do)을 했을때는 null값으로 적용되므로...
+			 if (searchCondition == null) {
+				 searchCondition = "TITLE";
+			 }else if (searchKeyword == null) {
+				 searchKeyword = "";			//공백이 들어가는것.
+			 }
+			 
+			 
+			 
+			 System.out.println("=======검색어 출력========");
+			 System.out.println(searchCondition);
+			 System.out.println(searchKeyword);
+			 
+			 
+			 
+			 // 1. DTO 객체 생성
+			 BoardDTO dto = new BoardDTO();
+			 
+			 dto.setSearchCondition(searchCondition);
+			 dto.setSearchKeyword(searchKeyword);		//dto에 클라가 입력한 변수 setter 주입
+			 
+			 
+			 // 2. DAO의 getBoardList(dto)
+			 BoardDAO dao = new BoardDAO();
+			 
+			 List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+			
+			 //boardList 에는 board 테이블의 각 레코드를 dto에 저장 후 boardList에 추가된 객체를 리턴
+			 boardList = dao.getBoardList(dto);
+			 
+			 //리턴받은 boardList를 Client의 View 페이지로 전송, (Session에 리스트를 저장 후 클라이언트로 전송)
+			 
+			 //Session : 접속한 모든 Client에 고유하게 부여된 식별자가 서버 메모리에 할당. 
+			 
+			 //세션 변수 선언
+			 HttpSession session = request.getSession();
+			 
+			 //세션에 boardList를 추가
+			 session.setAttribute("boardList", boardList); //session명 boardList으로 지정하고 boardList정보를 담아옴.
+			 
+			 //클라이언트 뷰페이지로 이동
+			 response.sendRedirect("getBoardList.jsp");
+			 
+			 
+			 
+			 
+			 
+			 /*
 		 } else if (path.equals("/getBoardList.do")) {	//글목록
 			 System.out.println("getBoardList.do 요청을 했습니다.");
 			
@@ -285,6 +346,7 @@ public class MyController extends HttpServlet {
 			 //클라이언트 뷰페이지로 이동
 			 response.sendRedirect("getBoardList.jsp");
 			
+			*/
 			 
 			 
 			 
